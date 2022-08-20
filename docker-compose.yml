@@ -7,7 +7,6 @@ services:
       - "${HTTP_LISTEN}:${HTTP_LISTEN}"
     volumes:
       - ${DATA_IMAGE}:${DATA_IMAGE}:rw
-      - /data/api:/api:rw
     restart: always
     entrypoint: [ "/api", "--http-listen", ":${HTTP_LISTEN}" ]
     environment:
