@@ -1,14 +1,18 @@
 version: "3"
 services:
   api:
-    image:  czht1118/api
+    build:
+      args:
+        MYSQL_ENDPOINT: ${MYSQL_ENDPOINT}
+        REDIS_ENDPOINT: ${REDIS_ENDPOINT}
+        API_IMAGE_TAG: ${API_IMAGE_TAG}
     container_name: api
     ports:
       - "${HTTP_LISTEN}:${HTTP_LISTEN}"
     volumes:
       - ${DATA_IMAGE}:${DATA_IMAGE}:rw
     restart: always
-    entrypoint: ["/api", "--http-listen", ":${HTTP_LISTEN}"]
+    entrypoint: [ "/api", "--http-listen", ":${HTTP_LISTEN}" ]
     environment:
       TZ: "$TZ"
     networks:
@@ -53,7 +57,7 @@ services:
       - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
       - ${DATA_DIR}/redis:/data/:rw
     restart: always
-    entrypoint: ["redis-server", "/etc/redis.conf"]
+    entrypoint: [ "redis-server", "/etc/redis.conf" ]
     environment:
       TZ: "$TZ"
     networks:
