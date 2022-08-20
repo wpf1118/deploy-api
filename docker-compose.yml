@@ -22,7 +22,6 @@ services:
       - "${NGINX_HTTPS_HOST_PORT}:443"
     volumes:
       - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
-      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
     environment:
       TZ: "$TZ"
