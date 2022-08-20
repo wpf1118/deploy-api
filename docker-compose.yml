@@ -1,11 +1,7 @@
 version: "3"
 services:
   api:
-    build:
-      args:
-        MYSQL_ENDPOINT: ${MYSQL_ENDPOINT}
-        REDIS_ENDPOINT: ${REDIS_ENDPOINT}
-        API_IMAGE_TAG: ${API_IMAGE_TAG}
+    image: czht1118/api:${API_IMAGE_TAG}
     container_name: api
     ports:
       - "${HTTP_LISTEN}:${HTTP_LISTEN}"
@@ -15,6 +11,9 @@ services:
     entrypoint: [ "/api", "--http-listen", ":${HTTP_LISTEN}" ]
     environment:
       TZ: "$TZ"
+      MYSQL_ENDPOINT: "${MYSQL_ENDPOINT}"
+      REDIS_ENDPOINT: "${REDIS_ENDPOINT}"
+      API_IMAGE_TAG: "${API_IMAGE_TAG}"
     networks:
       - default
 
