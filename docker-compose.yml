@@ -6,7 +6,7 @@ services:
     ports:
       - "${HTTP_LISTEN}:${HTTP_LISTEN}"
     volumes:
-      - ${DATA_IMAGE}:${DATA_IMAGE}:rw
+      - "${DATA_IMAGE}:${DATA_IMAGE}:rw"
     restart: always
     entrypoint: [ "/api", "--http-listen", ":${HTTP_LISTEN}" ]
     environment:
@@ -26,6 +26,7 @@ services:
     volumes:
       - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
+      - "/data/:/data/:rw"
     environment:
       TZ: "$TZ"
     restart: always
