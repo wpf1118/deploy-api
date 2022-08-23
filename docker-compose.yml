@@ -7,8 +7,9 @@ services:
       - "${HTTP_LISTEN}:${HTTP_LISTEN}"
     volumes:
       - "${DATA_IMAGE}:${DATA_IMAGE}:rw"
+      - "/data/console/:/data/console:rw"
     restart: always
-    entrypoint: [ "/api", "--http-listen", ":${HTTP_LISTEN}" ]
+    entrypoint: [ "/data/console/api", "--http-listen", ":${HTTP_LISTEN}" ]
     environment:
       TZ: "$TZ"
       MYSQL_ENDPOINT: "${MYSQL_ENDPOINT}"
