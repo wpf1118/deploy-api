@@ -57,7 +57,9 @@ services:
     volumes:
       - ${NGINX_SSL_CERTIFICATE_DIR}:/ssl:rw
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
-      - "${DATA_DIR}/:/data/:rw"
+      - ${NGINX_CONF_DIR}:/etc/nginx/conf.d/:rw
+      - ${DATA_DIR}/:/data/:rw
+      - ${DATA_DIR}/www/:/www/:rw
     environment:
       TZ: "$TZ"
     restart: always
@@ -79,7 +81,7 @@ services:
     expose:
       - 9000
     volumes:
-      - ${SOURCE_DIR}:/www/:rw
+      - ${DATA_DIR}/www:/data/www/:rw
       - ${PHP_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${PHP_LOG_DIR}:/var/log/php
