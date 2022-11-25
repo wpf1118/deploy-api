@@ -33,7 +33,7 @@ server {
         proxy_redirect off;
     }
 
-     location ~* \.(jpg|ico|icon|jpeg|png|js|css)$ {
+    location ~* \.(jpg|ico|icon|jpeg|png)$ {
         root   /data;
         index  index.html index.htm;
     }

@@ -1,5 +1,34 @@
 version: "3"
 services:
+  mysql5:
+    image: mysql:${MYSQL5_VERSION}
+    container_name: mysql5
+    ports:
+      - "${MYSQL5_HOST_PORT}:3306"
+    volumes:
+      - ${MYSQL5_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+      - ${DATA_DIR}/mysql5:/var/lib/mysql/:rw
+    restart: always
+    networks:
+      - default
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL5_ROOT_PASSWORD}"
+      TZ: "$TZ"
+
+  redis:
+    image: redis:${REDIS_VERSION}
+    container_name: redis
+    ports:
+      - "${REDIS_HOST_PORT}:6379"
+    volumes:
+      - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
+      - ${DATA_DIR}/redis:/data/:rw
+    restart: always
+    entrypoint: [ "redis-server", "/etc/redis.conf" ]
+    environment:
+      TZ: "$TZ"
+    networks:
+      - default
 
   nginx:
     image: nginx:${NGINX_VERSION}
@@ -12,7 +41,6 @@ services:
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
       - ${NGINX_CONF_DIR}:/etc/nginx/conf.d/:rw
       - ${DATA_DIR}/:/data/:rw
-      - ${DATA_DIR}/www/:/www/:rw
     environment:
       TZ: "$TZ"
     restart: always
@@ -20,7 +48,7 @@ services:
       - default
 
   php:
-    image: php-${PHP_VERSION}
+    image: php:7.3.33-fpm-local
     build:
       context: ./services/php
       args:
