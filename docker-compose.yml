@@ -48,7 +48,7 @@ services:
       - default
 
   php:
-    image: php:7.3.33-fpm-local
+    image: php:7.3.33-fpm-local-1222
     build:
       context: ./services/php
       args:

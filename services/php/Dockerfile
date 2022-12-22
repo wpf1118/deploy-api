@@ -35,4 +35,6 @@ RUN curl -o composer.phar https://install.phpcomposer.com/composer.phar \
 	&& mv composer.phar /usr/local/bin/composer \
 	&& chmod +x /usr/local/bin/composer
 
+WORKDIR /data/www
+
 EXPOSE 9000 9003 9002
